@@ -5,7 +5,6 @@
 package seccomp
 
 import (
-	"fmt"
 	"syscall"
 	"testing"
 )
@@ -33,7 +32,7 @@ func TestSyscallGetName(t *testing.T) {
 	} else if len(name) == 0 {
 		t.Errorf("Empty name returned for syscall 0x1")
 	}
-	fmt.Printf("Got name of syscall 0x1 on native arch as %s\n", name)
+	t.Logf("Got name of syscall 0x1 on native arch as %s\n", name)
 
 	_, err = callFail.GetName()
 	if err == nil {
@@ -78,7 +77,7 @@ func TestGetSyscallFromName(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error getting syscall number of write: %s", err)
 	}
-	fmt.Printf("Got syscall number of write on native arch as %d\n", syscall)
+	t.Logf("Got syscall number of write on native arch as %d\n", syscall)
 
 	_, err = GetSyscallFromName(nameInval)
 	if err == nil {
@@ -96,7 +95,7 @@ func TestGetSyscallFromNameByArch(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error getting syscall number of write on AMD64: %s", err)
 	}
-	fmt.Printf("Got syscall number of write on AMD64 as %d\n", syscall)
+	t.Logf("Got syscall number of write on AMD64 as %d\n", syscall)
 
 	_, err = GetSyscallFromNameByArch(nameInval, arch1)
 	if err == nil {
@@ -159,7 +158,7 @@ func TestGetNativeArch(t *testing.T) {
 	if err != nil {
 		t.Errorf("GetNativeArch should not error!")
 	}
-	fmt.Printf("Got native arch of system as %s\n", arch.String())
+	t.Logf("Got native arch of system as %s\n", arch.String())
 }
 
 // Filter Tests
